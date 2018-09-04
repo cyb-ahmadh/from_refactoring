@@ -1,18 +1,14 @@
 require 'byebug'
-require 'rental'
+require 'movie'
 
-describe Rental do
+describe Movie do
   describe 'Charge' do
     let(:movie) do
       Movie.new(movie_name, price_code)
     end
 
-    let(:rental) do
-      Rental.new(movie, days_rented)
-    end
-
     subject do
-      rental.charge
+      movie.charge(days_rented)
     end
 
     context 'For new release' do
