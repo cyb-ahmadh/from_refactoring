@@ -1,5 +1,8 @@
+require 'movie'
+require 'rental'
+
 class Customer
-  attr_reader :name
+ attr_reader :name
 
  def initialize(name)
    @name = name
