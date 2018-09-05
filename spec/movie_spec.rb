@@ -4,7 +4,9 @@ require 'movie'
 describe Movie do
   describe 'Charge' do
     let(:movie) do
-      Movie.new(movie_name, price_code)
+      movie = Movie.new(movie_name)
+      movie.price = price_klass
+      movie
     end
 
     subject do
@@ -13,7 +15,7 @@ describe Movie do
 
     context 'For new release' do
       let(:movie_name) { 'Avengers - Infinity Wars' }
-      let(:price_code) { 1 }
+      let(:price_klass) { NewReleasePrice.new }
       let(:days_rented) { 2 }
 
       it 'should match the price' do
@@ -23,7 +25,7 @@ describe Movie do
 
     context 'For regular release' do
       let(:movie_name) { 'Avengers - Age of Ultron' }
-      let(:price_code) { 0 }
+      let(:price_klass) { RegularPrice.new }
 
       context 'With less or equal than 2 days' do
         let(:days_rented) { 2 }
@@ -44,7 +46,7 @@ describe Movie do
 
     context 'For Childrens' do
       let(:movie_name) { 'Ice Age' }
-      let(:price_code) { 2 }
+      let(:price_klass) { ChildrensPrice.new }
 
       context 'With less or equal than 3 days' do
         let(:days_rented) { 2 }

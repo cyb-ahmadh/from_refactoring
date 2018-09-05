@@ -3,7 +3,9 @@ require 'customer'
 
 describe Customer do
   let(:movie) do
-    Movie.new(movie_name, price_code)
+    movie = Movie.new(movie_name)
+    movie.price = price_klass
+    movie
   end
 
   let(:rental) do
@@ -26,7 +28,7 @@ describe Customer do
 
     context 'new release' do
       let(:movie_name) { 'Stree' }
-      let(:price_code) { 1 }
+      let(:price_klass) { NewReleasePrice.new }
       let(:days_rented) { 3 }
       it 'should match the statement' do
         expect(subject).to eq("Rental Record for Ahmad\n\tStree\t9\nAmount owned is 9\nYou earned 2 frequent renter points")
@@ -35,7 +37,7 @@ describe Customer do
 
     context 'regular release' do
       let(:movie_name) { 'Iron Man' }
-      let(:price_code) { 0 }
+      let(:price_klass) { RegularPrice.new }
       let(:days_rented) { 2 }
 
       it 'should match the statement' do
@@ -45,7 +47,7 @@ describe Customer do
 
     context 'children release' do
       let(:movie_name) { 'Mowgli' }
-      let(:price_code) { 2 }
+      let(:price_klass) { ChildrensPrice.new }
       let(:days_rented) { 4 }
 
       it 'should match the statement' do
@@ -65,7 +67,7 @@ describe Customer do
 
     context 'new release' do
       let(:movie_name) { 'Stree' }
-      let(:price_code) { 1 }
+      let(:price_klass) { NewReleasePrice.new }
       let(:days_rented) { 3 }
       it "Should match the html" do
         expect(subject).to eq("<h1>Rentals for <em>Ahmad</em></h1><p>\n\tStree: 9<br>\n<p>You owe <em>9</em><p>\nOn this rental you earned <em>2</em> frequent renter points<p>")
